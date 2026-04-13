@@ -675,8 +675,12 @@
       <div class="result-header">
         <div>
           <div class="result-label" id="result-label">SPAM</div>
+<<<<<<< HEAD
           <div class="result-meta" id="res-description">Pattern strictly matches known malicious or unsolicited
             characteristics.</div>
+=======
+          <div class="result-meta" id="result-meta">Pattern matches known malicious characteristics</div>
+>>>>>>> 89f47237b16eb0a5bd29d367dcb3615b6b3f59b4
         </div>
         <div class="result-badge" id="result-badge">Detected</div>
       </div>
@@ -761,6 +765,7 @@
     function showResult(data, text) {
       // Normalize 'non-SPAM' and 'HAM' to 'HAM' internally for UI logic
       const rawLabel = (data.label || "").toUpperCase();
+<<<<<<< HEAD
       const is_spam = rawLabel === 'SPAM' || rawLabel === 'LABEL_1';
       const conf = parseFloat(data.confidence);
       const box = document.getElementById('result-box');
@@ -769,6 +774,16 @@
       document.getElementById('result-label').textContent = is_spam ? 'SPAM' : 'non-SPAM';
       document.getElementById('result-badge').textContent = is_spam ? 'Threat Detected' : 'Safe';
       document.getElementById('res-description').textContent = is_spam
+=======
+      const isSpam = rawLabel === 'SPAM' || rawLabel === 'LABEL_1';
+      const conf = parseFloat(data.confidence);
+      const box = document.getElementById('result-box');
+
+      box.className = 'result ' + (isSpam ? 'spam' : 'ham');
+      document.getElementById('result-label').textContent = isSpam ? 'SPAM' : 'LEGIT';
+      document.getElementById('result-badge').textContent = isSpam ? 'Threat Detected' : 'Safe';
+      document.getElementById('result-meta').textContent = isSpam
+>>>>>>> 89f47237b16eb0a5bd29d367dcb3615b6b3f59b4
         ? 'Pattern strictly matches known malicious or unsolicited characteristics.'
         : 'Message appears natural and lacks common phishing or spam vectors.';
       document.getElementById('conf-pct').textContent = conf.toFixed(1) + '%';
@@ -780,7 +795,11 @@
       }, 50);
 
       historyLog.unshift({
+<<<<<<< HEAD
         label: is_spam ? 'SPAM' : 'non-SPAM',
+=======
+        label: isSpam ? 'SPAM' : 'HAM',
+>>>>>>> 89f47237b16eb0a5bd29d367dcb3615b6b3f59b4
         text: text.slice(0, 50) + (text.length > 50 ? '...' : ''),
         conf: conf.toFixed(1)
       });
